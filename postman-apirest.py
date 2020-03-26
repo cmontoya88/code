@@ -1,3 +1,7 @@
+### This code was make to consume Flask API REST with MongoEngine
+
+
+# imports
 import requests
 import json
 from bson import json_util
