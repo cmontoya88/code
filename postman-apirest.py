@@ -1,4 +1,5 @@
-### This code was make to consume Flask API REST with MongoEngine
+### This code was make to consume Flask API REST with MongoEngine (Python with MongoDB)
+### You should have an api to consume it
 
 
 # imports
@@ -13,7 +14,7 @@ logging.basicConfig(level=logging.DEBUG)
 
 
 # requests optimal settings
-url_api="http://127.0.0.1/api/"
+url_api="http://127.0.0.1/api/"#you can use "ngrok" to expose to internet your localhost api to consume it
 nodo_adapter = requests.adapters.HTTPAdapter(max_retries=0,pool_maxsize=10,pool_connections=10,pool_block=False)
 sessioner = requests.Session()
 sessioner.mount(url_api, nodo_adapter)
@@ -55,7 +56,7 @@ def posting(entity, obj_dict):
 # put document
 def putting(entity, obj_dict):
     try:
-        id = obj_dict['_id']
+        id = str(obj_dict['_id'])
         del obj_dict['_id']
         response = sessioner.put(url_api+entity+"/"+id,json=obj_dict, timeout=(1,1))
         if response.status_code == 200 :
@@ -72,7 +73,7 @@ def putting(entity, obj_dict):
 # get one document
 def getting(entity, ide):
     try:
-        response = sessioner.get(url_api+entity+"/"+ide, timeout=(1,1))
+        response = sessioner.get(url_api+entity+"/"+str(ide), timeout=(1,1))
         if response.status_code == 200 :
             data = json.loads(json_util.dumps(response.json()), object_hook=json_util.object_hook)
             return data
@@ -84,7 +85,7 @@ def getting(entity, ide):
         logging.exception("*** Ha ocurrido un error:")
 
 
-#DELETE
+# delete document
 def deleting(entity, obj_dict):
     id = obj_dict['_id']
     try:
