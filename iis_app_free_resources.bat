@@ -1,0 +1,1 @@
+C:\Windows\System32\Inetsrv\appcmd.exe recycle apppool /apppool.name:"NombreDeTuPoolDeAplicaciones"
